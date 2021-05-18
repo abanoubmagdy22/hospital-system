@@ -1,0 +1,20 @@
+<odoo>
+    <data>
+        <record id="crm_customer_view_inherit" model="ir.ui.view">
+         <field name="name">Crm Customer Inherit</field>
+         <field name="model">res.partner</field>
+         <field name="inherit_id" ref="base.view_partner_form"/>
+         <field name="arch" type="xml">
+             <xpath expr="//page[2]" position="inside">
+                 <group>
+                     <field name="related_patient_id"/>
+                     <field name="salary"/>
+                 </group>
+             </xpath>
+             <field name="vat" position="after">
+             <field name="related_patient_id"/>
+             </field>
+         </field>
+        </record>
+    </data>
+</odoo>

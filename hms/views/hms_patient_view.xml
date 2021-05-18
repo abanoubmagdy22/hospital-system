@@ -1,0 +1,74 @@
+<odoo>
+    <data>
+<!--        <record id="hms_tree_views" model="ir.ui.view"/>-->
+
+          <record id="hms_actions" model="ir.actions.act_window">
+            <field name="name">Patient</field>
+            <field name="res_model">hms.patient</field>
+
+        </record>
+<!--         tree-->
+        <record id="hms_tree_view" model="ir.ui.view">
+            <field name="name">Hms Tree View</field>
+            <field name="model">hms.patient</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="firstname"/>
+                    <field name="lastname"/>
+                    <field name="Age"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="hms_form_view" model="ir.ui.view">
+            <field name="name">Hms Form View</field>
+            <field name="model">hms.patient</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                    <group>
+                        <group string="Patient Information">
+                            <field name="firstname"/>
+                            <field name="lastname"/>
+                            <field name="email"/>
+                            <field name="birthdate"/>
+                            <field name="Age"/>
+                            <field name="history" attrs="{'invisible':[('Age','&lt;','50')]}"/>
+                             <field name="blood_type"/>
+                            <field name="Pcr"/>
+                            <field name="CR_Ratio" attrs="{'required':[('Pcr','=',True)]}"/>
+                        </group>
+                        <group string="Extra Info">
+                            <field name="image" widget="image"/>
+                            <field name="department_id" domain="[('is_opened','=',True)]"/>
+                            <field name="department_name"/>
+                            <field name="patient_capacity"/>
+                            <field name="state"/>
+<!--                           <field name="tags_ids" widget="many2many_tags" attrs="{'readonly':[('department_id','=',False)]}"/>-->
+                            <field name="tags_ids" widget="many2many_tags"
+                                       attrs="{'readonly':[('department_id','=',False)]}"/>
+
+                        </group>
+                    </group>
+                          <notebook>
+                        <page string="History_log">
+                            <group>
+                            <field name="write_uid"/>
+                            <field name="write_date"/>
+                             <field name="description"/>
+                            </group>
+                        </page>
+                    </notebook>
+                    </sheet>
+
+                </form>
+            </field>
+
+        </record>
+
+
+      <menuitem id="hms_root" name="HMS"/>
+        <menuitem id="hms_patient" name="Patient"
+                  parent="hms_root" action="hms_actions"/>
+    </data>
+</odoo>
